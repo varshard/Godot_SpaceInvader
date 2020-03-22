@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/enemies/enemyShip.png" type="Texture" id=1]
+[ext_resource path="res://characters/EnemyShip.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 19.1975
+height = 56.1566
+
+[node name="EnemyShip" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.77655, -4.48595 )
+rotation = -1.57184
+shape = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_EnemyShip_body_entered"]

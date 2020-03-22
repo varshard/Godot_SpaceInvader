@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/player/playerLeft.png" type="Texture" id=1]
+[ext_resource path="res://assets/player/playerDamaged.png" type="Texture" id=2]
+[ext_resource path="res://assets/player/player.png" type="Texture" id=3]
+[ext_resource path="res://assets/player/playerRight.png" type="Texture" id=4]
+[ext_resource path="res://player/Player.gd" type="Script" id=5]
+[ext_resource path="res://player/PlayerBullet.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.3471, 38.8458 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "damaged",
+"speed": 5.0
+} ]
+
+[node name="Player" type="Area2D"]
+script = ExtResource( 5 )
+bullet = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="GunBarrel" type="Position2D" parent="."]
+position = Vector2( 1.10956, -38.8345 )
+
+[node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.5
+[connection signal="timeout" from="GunTimer" to="." method="_on_GunTimer_timeout"]
